@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compte à Rebours - 6 Août</title>
+    <title>Mes Comptes à Rebours</title>
     <style>
         :root {
-            --primary-color: #4a90e2;
-            --background-color: #f5f7fa;
+            --background-color: #f0f2f5;
             --card-background: #ffffff;
-            --text-color: #333333;
-            --text-secondary: #666666;
+            --text-color: #2c3e50;
+            --text-secondary: #7f8c8d;
+            
+            /* Couleurs personnalisées pour chacun */
+            --color-nabil: #3498db;
+            --color-ihssan: #9b59b6;
+            --color-ilyas: #e67e22;
         }
 
         body {
@@ -18,7 +22,7 @@
             background-color: var(--background-color);
             color: var(--text-color);
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
             margin: 0;
@@ -26,172 +30,248 @@
             box-sizing: border-box;
         }
 
-        .container {
-            background-color: var(--card-background);
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            width: 100%;
-            max-width: 500px;
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            color: #2c3e50;
             text-align: center;
         }
 
-        h1 {
-            font-size: 1.8rem;
-            margin-bottom: 25px;
+        .today-box {
+            background: #ffffff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .today-box span {
+            color: #2c3e50;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .card {
+            background-color: var(--card-background);
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border-top: 6px solid var(--primary-color);
+            box-sizing: border-box;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Classes spécifiques pour les bordures de couleur */
+        .card.nabil { --primary-color: var(--color-nabil); }
+        .card.ihssan { --primary-color: var(--color-ihssan); }
+        .card.ilyas { --primary-color: var(--color-ilyas); }
+
+        .name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin: 0 0 5px 0;
             color: var(--primary-color);
         }
 
-        .date-section {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e1e8ed;
-        }
-
-        .label {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .target-date {
+            font-size: 0.95rem;
             color: var(--text-secondary);
-            margin-bottom: 5px;
-        }
-
-        .date-display {
-            font-size: 1.3rem;
-            font-weight: 600;
+            margin-bottom: 20px;
+            font-weight: 500;
         }
 
         .countdown-display {
             display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
+            justify-content: space-between;
+            gap: 15px;
         }
 
         .countdown-box {
-            background-color: #f0f4f8;
+            background-color: #f8fafc;
             border-radius: 12px;
-            padding: 15px;
-            width: 40%;
-            transition: transform 0.2s;
-        }
-
-        .countdown-box:hover {
-            transform: translateY(-2px);
+            padding: 12px;
+            flex: 1;
+            border: 1px solid #e2e8f0;
         }
 
         .number {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 700;
-            color: var(--primary-color);
+            color: #2c3e50;
             display: block;
         }
 
         .unit {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            font-weight: 500;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .celebration {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: bold;
             color: #2ecc71;
+            padding: 20px 0;
             animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.03); }
             100% { transform: scale(1); }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Objectif : 6 Août</h1>
-        
-        <div class="date-section">
-            <div class="label">Date d'aujourd'hui</div>
-            <div id="current-date" class="date-display">-</div>
-        </div>
+    <h1>Mes Comptes à Rebours</h1>
+    <div class="today-box">Aujourd'hui : <span id="current-date">-</span></div>
 
-        <div class="date-section">
-            <div class="label">Prochain 6 Août</div>
-            <div id="target-date" class="date-display">-</div>
-        </div>
-
-        <div class="label">Temps restant</div>
-        <div id="countdown-container" class="countdown-display">
-            <div class="countdown-box">
-                <span id="months-left" class="number">-</span>
-                <span id="months-unit" class="unit">Mois</span>
+    <div class="cards-container">
+        <!-- Carte Nabil -->
+        <div class="card nabil">
+            <h2 class="name">Nabil</h2>
+            <div class="target-date" id="target-nabil">-</div>
+            <div id="countdown-nabil" class="countdown-display">
+                <div class="countdown-box">
+                    <span id="months-nabil" class="number">-</span>
+                    <span class="unit">Mois</span>
+                </div>
+                <div class="countdown-box">
+                    <span id="days-nabil" class="number">-</span>
+                    <span class="unit">Jours</span>
+                </div>
             </div>
-            <div class="countdown-box">
-                <span id="days-left" class="number">-</span>
-                <span id="days-unit" class="unit">Jours</span>
+        </div>
+
+        <!-- Carte Ihssan -->
+        <div class="card ihssan">
+            <h2 class="name">Ihssan</h2>
+            <div class="target-date" id="target-ihssan">-</div>
+            <div id="countdown-ihssan" class="countdown-display">
+                <div class="countdown-box">
+                    <span id="months-ihssan" class="number">-</span>
+                    <span class="unit">Mois</span>
+                </div>
+                <div class="countdown-box">
+                    <span id="days-ihssan" class="number">-</span>
+                    <span class="unit">Jours</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte Ilyas -->
+        <div class="card ilyas">
+            <h2 class="name">Ilyas</h2>
+            <div class="target-date" id="target-ilyas">-</div>
+            <div id="countdown-ilyas" class="countdown-display">
+                <div class="countdown-box">
+                    <span id="months-ilyas" class="number">-</span>
+                    <span class="unit">Mois</span>
+                </div>
+                <div class="countdown-box">
+                    <span id="days-ilyas" class="number">-</span>
+                    <span class="unit">Jours</span>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        function updateCountdown() {
+        const configCibles = [
+            { id: 'nabil', jour: 16, mois: 11 },  // Décembre = 11 (0-11 en JS)
+            { id: 'ihssan', jour: 2, mois: 7 },   // Août = 7
+            { id: 'ilyas', jour: 6, mois: 7 }     // Août = 7
+        ];
+
+        function calculerTempsRestant(now, jourCible, moisCible) {
+            let targetYear = now.getFullYear();
+            let targetDate = new Date(targetYear, moisCible, jourCible);
+
+            // Si la date de cette année est déjà passée, on vise l'année prochaine
+            if (now > targetDate && !(now.getDate() === jourCible && now.getMonth() === moisCible)) {
+                targetYear++;
+                targetDate = new Date(targetYear, moisCible, jourCible);
+            }
+
+            // Vérification si c'est aujourd'hui
+            if (now.getDate() === jourCible && now.getMonth() === moisCible) {
+                return { fete: true, dateTexte: targetDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) };
+            }
+
+            let monthsDiff = moisCible - now.getMonth() + (12 * (targetYear - now.getFullYear()));
+            let daysDiff = jourCible - now.getDate();
+
+            if (daysDiff < 0) {
+                monthsDiff--;
+                const moisPrecedent = new Date(targetYear, moisCible, 0);
+                daysDiff += moisPrecedent.getDate();
+            }
+
+            return {
+                fete: false,
+                mois: monthsDiff,
+                jours: daysDiff,
+                dateTexte: targetDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
+            };
+        }
+
+        function updateAllCountdowns() {
             const now = new Date();
             
-            // Options pour formater les dates en français
+            // Affichage de la date du jour complète
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             document.getElementById('current-date').textContent = now.toLocaleDateString('fr-FR', options);
 
-            // Détermination de l'année cible (cette année ou l'année prochaine)
-            let targetYear = now.getFullYear();
-            let targetDate = new Date(targetYear, 7, 6); // Attention: en JS les mois commencent à 0 (7 = Août)
+            // Traitement de chaque profil
+            configCibles.forEach(cible => {
+                const resultat = calculerTempsRestant(now, cible.jour, cible.mois);
+                
+                // Met à jour la date cible affichée sur la carte
+                document.getElementById(`target-${cible.id}`).textContent = `Objectif : ${resultat.dateTexte}`;
 
-            // Si le 6 août de cette année est déjà passé, on cible l'année suivante
-            if (now > targetDate) {
-                targetYear++;
-                targetDate = new Date(targetYear, 7, 6);
-            }
-
-            document.getElementById('target-date').textContent = targetDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
-
-            // Vérification si c'est aujourd'hui le jour J
-            if (now.getDate() === 6 && now.getMonth() === 7) {
-                document.getElementById('countdown-container').innerHTML = `<div class="celebration">🎉 C'est aujourd'hui ! 🎉</div>`;
-                return;
-            }
-
-            // Calcul de la différence en mois et jours de manière relative
-            let currentYear = now.getFullYear();
-            let currentMonth = now.getMonth();
-            let currentDay = now.getDate();
-
-            let targetMonth = targetDate.getMonth();
-            let targetDay = targetDate.getDate();
-
-            let monthsDiff = targetMonth - currentMonth + (12 * (targetYear - currentYear));
-            let daysDiff = targetDay - currentDay;
-
-            // Ajustement si les jours sont négatifs
-            if (daysDiff < 0) {
-                monthsDiff--;
-                // Trouver le dernier jour du mois précédent pour reporter les jours correctement
-                const previousMonth = new Date(targetYear, targetMonth, 0);
-                daysDiff += previousMonth.getDate();
-            }
-
-            // Mise à jour de l'affichage textuel et gestion du singulier/pluriel
-            document.getElementById('months-left').textContent = monthsDiff;
-            document.getElementById('months-unit').textContent = monthsDiff <= 1 ? 'Mois' : 'Mois'; // "Mois" est invariable
-
-            document.getElementById('days-left').textContent = daysDiff;
-            document.getElementById('days-unit').textContent = daysDiff <= 1 ? 'Jour' : 'Jours';
+                const container = document.getElementById(`countdown-${cible.id}`);
+                
+                if (resultat.fete) {
+                    container.innerHTML = `<div class="celebration">🎉 C'est aujourd'hui ! 🎉</div>`;
+                } else {
+                    // Restaure la structure des blocs si elle avait été effacée par le mode fête
+                    container.innerHTML = `
+                        <div class="countdown-box">
+                            <span id="months-${cible.id}" class="number">${resultat.mois}</span>
+                            <span class="unit">Mois</span>
+                        </div>
+                        <div class="countdown-box">
+                            <span id="days-${cible.id}" class="number">${resultat.jours}</span>
+                            <span class="unit">${resultat.jours <= 1 ? 'Jour' : 'Jours'}</span>
+                        </div>
+                    `;
+                }
+            });
         }
 
-        // Exécution immédiate au chargement
-        updateCountdown();
-        
-        // Mise à jour automatique toutes les heures pour garder la date fraîche
-        setInterval(updateCountdown, 3600000);
+        // Lancement immédiat et actualisation toutes les heures
+        updateAllCountdowns();
+        setInterval(updateAllCountdowns, 3600000);
     </script>
 </body>
 </html>
